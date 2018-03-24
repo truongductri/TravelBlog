@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimplBlog.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplBlog
 {
@@ -22,6 +24,8 @@ namespace SimplBlog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            var connection = @"Server=DESKTOP-V33HAG7\SQLEXPRESS;Database=SimplBlog;User Id=sa;Password=123456;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<BloggingContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
