@@ -9,22 +9,26 @@ using SimplBlog.Models;
 
 namespace SimplBlog.Controllers
 {
-    public class BlogsController : Controller
+    public class CategoryBlsController : Controller
     {
         private readonly BloggingContext _context;
 
-        public BlogsController(BloggingContext context)
+        public CategoryBlsController(BloggingContext context)
         {
             _context = context;
         }
 
-        // GET: Blogs
+        // GET: CategoryBls
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Blogs.ToListAsync());
+            return View(await _context.CategoryBls.ToListAsync());
+        }
+        public async Task<IActionResult> _NaviCate(int n = 5)
+        {
+            return PartialView(await _context.CategoryBls.Take(n).ToListAsync());
         }
 
-        // GET: Blogs/Details/5
+        // GET: CategoryBls/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +36,39 @@ namespace SimplBlog.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blogs
-                .SingleOrDefaultAsync(m => m.BlogId == id);
-            if (blog == null)
+            var categoryBl = await _context.CategoryBls
+                .SingleOrDefaultAsync(m => m.CateBlId == id);
+            if (categoryBl == null)
             {
                 return NotFound();
             }
 
-            return View(blog);
+            return View(categoryBl);
         }
 
-        // GET: Blogs/Create
+        // GET: CategoryBls/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Blogs/Create
+        // POST: CategoryBls/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BlogId,Url,Name")] Blog blog)
+        public async Task<IActionResult> Create([Bind("CateBlId,Url,Name")] CategoryBl categoryBl)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(blog);
+                _context.Add(categoryBl);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(blog);
+            return View(categoryBl);
         }
 
-        // GET: Blogs/Edit/5
+        // GET: CategoryBls/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +76,22 @@ namespace SimplBlog.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blogs.SingleOrDefaultAsync(m => m.BlogId == id);
-            if (blog == null)
+            var categoryBl = await _context.CategoryBls.SingleOrDefaultAsync(m => m.CateBlId == id);
+            if (categoryBl == null)
             {
                 return NotFound();
             }
-            return View(blog);
+            return View(categoryBl);
         }
 
-        // POST: Blogs/Edit/5
+        // POST: CategoryBls/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BlogId,Url,Name")] Blog blog)
+        public async Task<IActionResult> Edit(int id, [Bind("CateBlId,Url,Name")] CategoryBl categoryBl)
         {
-            if (id != blog.BlogId)
+            if (id != categoryBl.CateBlId)
             {
                 return NotFound();
             }
@@ -96,12 +100,12 @@ namespace SimplBlog.Controllers
             {
                 try
                 {
-                    _context.Update(blog);
+                    _context.Update(categoryBl);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BlogExists(blog.BlogId))
+                    if (!CategoryBlExists(categoryBl.CateBlId))
                     {
                         return NotFound();
                     }
@@ -112,10 +116,10 @@ namespace SimplBlog.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(blog);
+            return View(categoryBl);
         }
 
-        // GET: Blogs/Delete/5
+        // GET: CategoryBls/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +127,30 @@ namespace SimplBlog.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blogs
-                .SingleOrDefaultAsync(m => m.BlogId == id);
-            if (blog == null)
+            var categoryBl = await _context.CategoryBls
+                .SingleOrDefaultAsync(m => m.CateBlId == id);
+            if (categoryBl == null)
             {
                 return NotFound();
             }
 
-            return View(blog);
+            return View(categoryBl);
         }
 
-        // POST: Blogs/Delete/5
+        // POST: CategoryBls/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var blog = await _context.Blogs.SingleOrDefaultAsync(m => m.BlogId == id);
-            _context.Blogs.Remove(blog);
+            var categoryBl = await _context.CategoryBls.SingleOrDefaultAsync(m => m.CateBlId == id);
+            _context.CategoryBls.Remove(categoryBl);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BlogExists(int id)
+        private bool CategoryBlExists(int id)
         {
-            return _context.Blogs.Any(e => e.BlogId == id);
+            return _context.CategoryBls.Any(e => e.CateBlId == id);
         }
     }
 }

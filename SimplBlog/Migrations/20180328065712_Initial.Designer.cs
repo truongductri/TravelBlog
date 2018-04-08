@@ -11,27 +11,28 @@ using System;
 namespace SimplBlog.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    partial class BloggingContextModelSnapshot : ModelSnapshot
+    [Migration("20180328065712_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SimplBlog.Models.CategoryBl", b =>
+            modelBuilder.Entity("SimplBlog.Models.Blog", b =>
                 {
-                    b.Property<int>("CateBlId")
+                    b.Property<int>("BlogId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
                     b.Property<string>("Url");
 
-                    b.HasKey("CateBlId");
+                    b.HasKey("BlogId");
 
-                    b.ToTable("CategoryBls");
+                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("SimplBlog.Models.Post", b =>
@@ -39,7 +40,7 @@ namespace SimplBlog.Migrations
                     b.Property<int>("PostId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CateBlId");
+                    b.Property<int>("BlogId");
 
                     b.Property<string>("Content");
 
@@ -47,16 +48,16 @@ namespace SimplBlog.Migrations
 
                     b.HasKey("PostId");
 
-                    b.HasIndex("CateBlId");
+                    b.HasIndex("BlogId");
 
                     b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("SimplBlog.Models.Post", b =>
                 {
-                    b.HasOne("SimplBlog.Models.CategoryBl")
+                    b.HasOne("SimplBlog.Models.Blog", "Blog")
                         .WithMany("Posts")
-                        .HasForeignKey("CateBlId")
+                        .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

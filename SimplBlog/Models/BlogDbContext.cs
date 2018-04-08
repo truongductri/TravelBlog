@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,14 +12,15 @@ namespace SimplBlog.Models
         public BloggingContext(DbContextOptions<BloggingContext> options)
             : base(options)
         { }
-
-        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<CategoryBl> CategoryBls { get; set; }
         public DbSet<Post> Posts { get; set; }
+        
     }
 
-    public class Blog
+    public class CategoryBl
     {
-        public int BlogId { get; set; }
+        [Key]
+        public int CateBlId { get; set; }
         public string Url { get; set; }
         public string Name { get; set; }
 
@@ -31,7 +33,10 @@ namespace SimplBlog.Models
         public string Title { get; set; }
         public string Content { get; set; }
 
-        public int BlogId { get; set; }
-        public Blog Blog { get; set; }
+        public int CateBlId { get; set; }
+        
     }
+
+   
+
 }

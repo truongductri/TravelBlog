@@ -11,9 +11,10 @@ using System;
 namespace SimplBlog.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    partial class BloggingContextModelSnapshot : ModelSnapshot
+    [Migration("20180328074320_crop-Category-tb-and-edit-BlogTb-to-CategoryBlTb")]
+    partial class cropCategorytbandeditBlogTbtoCategoryBlTb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

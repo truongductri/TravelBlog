@@ -38,7 +38,14 @@
         </div>
     </nav>
     <div class="container body-content">
-        @RenderBody()
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+        <div class="col-md-3">
+            <h2>CHUYÊN MỤC</h2>
+           @Html.Partial("~/Views/CategoryBls/_NaviCate.cshtml")
+        </div>
+        
         <hr />
         <footer>
             <p>&copy; 2018 - SimplBlog</p>

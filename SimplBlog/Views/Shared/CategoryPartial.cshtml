@@ -1,0 +1,23 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<SimplBlog.Models.CategoryBl>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chủ Đề</h2>
+
+
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            @item.Name
+        </li>
+    }
+</ul>
