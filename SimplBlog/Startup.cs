@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimplBlog.Models;
 using Microsoft.EntityFrameworkCore;
+using SimplBlog.Repository;
 
 namespace SimplBlog
 {
@@ -23,10 +24,12 @@ namespace SimplBlog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ICateRepo, CateRepo>();
             services.AddMvc();
+            
             var connection = @"Server=DESKTOP-V33HAG7\SQLEXPRESS;Database=SimplBlog;User Id=sa;Password=123456;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<BloggingContext>(options => options.UseSqlServer(connection));
-
+            
             services.AddSession(options =>
             {
                 // Set a short timeout for easy testing.

@@ -9,26 +9,22 @@ using SimplBlog.Models;
 
 namespace SimplBlog.Controllers
 {
-    public class CategoryBlsController : Controller
+    public class PostsController : Controller
     {
         private readonly BloggingContext _context;
 
-        public CategoryBlsController(BloggingContext context)
+        public PostsController(BloggingContext context)
         {
             _context = context;
         }
 
-        // GET: CategoryBls
+        // GET: Posts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CategoryBls.ToListAsync());
-        }
-        public async Task<IActionResult> _NaviCate(int n = 5)
-        {
-            return PartialView(await _context.CategoryBls.Take(n).ToListAsync());
+            return View(await _context.Posts.ToListAsync());
         }
 
-        // GET: CategoryBls/Details/5
+        // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,39 +32,39 @@ namespace SimplBlog.Controllers
                 return NotFound();
             }
 
-            var categoryBl = await _context.CategoryBls
-                .SingleOrDefaultAsync(m => m.CateBlId == id);
-            if (categoryBl == null)
+            var post = await _context.Posts
+                .SingleOrDefaultAsync(m => m.PostId == id);
+            if (post == null)
             {
                 return NotFound();
             }
 
-            return View(categoryBl);
+            return View(post);
         }
 
-        // GET: CategoryBls/Create
+        // GET: Posts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: CategoryBls/Create
+        // POST: Posts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CateBlId,Url,Name")] CategoryBl categoryBl)
+        public async Task<IActionResult> Create([Bind("PostId,Title,ShortDescription,Description,Meta,Url,Published,PostedOn,Modified,ImagePath")] Post post)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoryBl);
+                _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoryBl);
+            return View(post);
         }
 
-        // GET: CategoryBls/Edit/5
+        // GET: Posts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,22 +72,22 @@ namespace SimplBlog.Controllers
                 return NotFound();
             }
 
-            var categoryBl = await _context.CategoryBls.SingleOrDefaultAsync(m => m.CateBlId == id);
-            if (categoryBl == null)
+            var post = await _context.Posts.SingleOrDefaultAsync(m => m.PostId == id);
+            if (post == null)
             {
                 return NotFound();
             }
-            return View(categoryBl);
+            return View(post);
         }
 
-        // POST: CategoryBls/Edit/5
+        // POST: Posts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CateBlId,Url,Name")] CategoryBl categoryBl)
+        public async Task<IActionResult> Edit(int id, [Bind("PostId,Title,ShortDescription,Description,Meta,Url,Published,PostedOn,Modified,ImagePath")] Post post)
         {
-            if (id != categoryBl.CateBlId)
+            if (id != post.PostId)
             {
                 return NotFound();
             }
@@ -100,12 +96,12 @@ namespace SimplBlog.Controllers
             {
                 try
                 {
-                    _context.Update(categoryBl);
+                    _context.Update(post);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryBlExists(categoryBl.CateBlId))
+                    if (!PostExists(post.PostId))
                     {
                         return NotFound();
                     }
@@ -116,10 +112,10 @@ namespace SimplBlog.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoryBl);
+            return View(post);
         }
 
-        // GET: CategoryBls/Delete/5
+        // GET: Posts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -127,30 +123,30 @@ namespace SimplBlog.Controllers
                 return NotFound();
             }
 
-            var categoryBl = await _context.CategoryBls
-                .SingleOrDefaultAsync(m => m.CateBlId == id);
-            if (categoryBl == null)
+            var post = await _context.Posts
+                .SingleOrDefaultAsync(m => m.PostId == id);
+            if (post == null)
             {
                 return NotFound();
             }
 
-            return View(categoryBl);
+            return View(post);
         }
 
-        // POST: CategoryBls/Delete/5
+        // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var categoryBl = await _context.CategoryBls.SingleOrDefaultAsync(m => m.CateBlId == id);
-            _context.CategoryBls.Remove(categoryBl);
+            var post = await _context.Posts.SingleOrDefaultAsync(m => m.PostId == id);
+            _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryBlExists(int id)
+        private bool PostExists(int id)
         {
-            return _context.CategoryBls.Any(e => e.CateBlId == id);
+            return _context.Posts.Any(e => e.PostId == id);
         }
     }
 }

@@ -14,12 +14,12 @@ namespace SimplBlog.Services
         }
 
       
-        public List<SimplBlog.Models.CategoryBl> GetSpecialNews()
+        public List<SimplBlog.Models.Category> GetSpecialNews()
         {
             
             try
             {
-                List<SimplBlog.Models.CategoryBl> qGetSpecialNews = _blContext.CategoryBls.ToList();             
+                List<SimplBlog.Models.Category> qGetSpecialNews = _blContext.Categories.ToList();             
                 return qGetSpecialNews;
                 
             }
