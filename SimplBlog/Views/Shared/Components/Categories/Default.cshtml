@@ -15,9 +15,11 @@
         <ul>
             @foreach(var item in Model)
             {
-                <li><a href="#">@item.Name</a></li>
+                <li><a href="~/Categories/Index?id=@item.CategoryId">@item.Name</a></li>
 
             }
         </ul>
 
     }
+
+

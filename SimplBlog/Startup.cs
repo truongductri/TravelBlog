@@ -25,6 +25,7 @@ namespace SimplBlog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ICateRepo, CateRepo>();
+            services.AddTransient<IPostRepo, PostRepo>();
             services.AddMvc();
             
             var connection = @"Server=DESKTOP-V33HAG7\SQLEXPRESS;Database=SimplBlog;User Id=sa;Password=123456;Trusted_Connection=True;ConnectRetryCount=0";

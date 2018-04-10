@@ -12,6 +12,7 @@ namespace SimplBlog.Components
     public class Categories : ViewComponent
     {
         private ICateRepo _cateRepo;
+        
         public Categories(ICateRepo cateRepo)
         {
             _cateRepo = cateRepo;
@@ -23,6 +24,7 @@ namespace SimplBlog.Components
            
             return  View(cateLst);
         }
+       
     }
    
 }

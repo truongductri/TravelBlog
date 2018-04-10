@@ -6,22 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SimplBlog.Models;
+using SimplBlog.Repository;
 
 namespace SimplBlog.Controllers
 {
     public class CategoriesController : Controller
     {
         private readonly BloggingContext _context;
-
-        public CategoriesController(BloggingContext context)
+        private IPostRepo _postRepo;
+        public CategoriesController(BloggingContext context,IPostRepo postRepo)
         {
             _context = context;
+            _postRepo = postRepo;
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public  IActionResult Index(int id)
         {
-            return View(await _context.Categories.ToListAsync());
+            var lstPost = _postRepo.GetListPostByCategory(id);
+            return View(lstPost);
         }
 
         // GET: Categories/Details/5
