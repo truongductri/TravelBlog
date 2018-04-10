@@ -18,5 +18,6 @@ namespace SimplBlog.Repository
         {
             return  _context.Categories.ToList();
         }
+       
     }
 }
