@@ -12,9 +12,9 @@
             <div class="content-grid-info">
                 <img src="@item.ImagePath" alt="" style="width:250px; height:auto;" />
                 <div class="post-info">
-                    <h4><a href="@item.Url">@item.Title</a> @item.PostedOn.ToShortDateString() / 27 Comments</h4>
+                    <h4><a href="@item.Url=@item.PostId">@item.Title</a> @item.PostedOn.ToShortDateString() / 27 Comments</h4>
                     <p>@item.ShortDescription</p>
-                    <a href="@item.Url"><span></span>READ MORE</a>
+                    <a href="@item.Url=@item.PostId"><span></span>READ MORE</a>
                 </div>
             </div>
         }
