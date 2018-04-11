@@ -1,0 +1,22 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<SimplBlog.Models.Post>
+@if (Model != null)
+{
+    <div class="content-grid">
+
+        @foreach (var item in Model)
+        {
+            <div class="content-grid-info">
+                <img src="@item.ImagePath" alt="" style="width:250px; height:auto;" />
+                <div class="post-info">
+                    <h4><a href="@item.Url">@item.Title</a> @item.PostedOn.ToShortDateString() / 27 Comments</h4>
+                    <p>@item.ShortDescription</p>
+                    <a href="@item.Url"><span></span>READ MORE</a>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -52,8 +52,9 @@ namespace SimplBlog.Models
         public DateTime PostedOn { get; set; }
         public DateTime? Modified { get; set; }
         public string ImagePath { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
-       
     }
 
    

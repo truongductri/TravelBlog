@@ -21,6 +21,7 @@ namespace SimplBlog.Repository
         public List<Post> GetListPostByCategory(int categoryId)
         {
             return _context.Posts.Where(x => x.CategoryId == categoryId).ToList();
+            
         }
         public List<Post> GetList()
         {
