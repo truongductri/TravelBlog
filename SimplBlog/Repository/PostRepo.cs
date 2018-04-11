@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimplBlog.Repository
 {
-    public class PostRepo: IPostRepo
+    public class PostRepo : IPostRepo
     {
         private BloggingContext _context;
         public PostRepo(BloggingContext context)
@@ -18,14 +18,14 @@ namespace SimplBlog.Repository
         {
             return _context.Posts.Where(x => x.Published == true).ToList();
         }
-        public List<Post> GetListPostByCategory(int categoryId)
+        public List<Post> GetListPostByCategory(int? id)
         {
-            return _context.Posts.Where(x => x.CategoryId == categoryId).ToList();
-            
+            return _context.Posts.Where(x => x.CategoryId == id).ToList();
+
         }
-        public List<Post> GetList()
+        public Post GetDetailPost(int? id)
         {
-            throw new NotImplementedException();
+            return _context.Posts.SingleOrDefault(x => x.PostId == id);
         }
     }
 }

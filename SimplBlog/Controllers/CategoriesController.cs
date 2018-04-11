@@ -21,7 +21,7 @@ namespace SimplBlog.Controllers
         }
 
         // GET: Categories
-        public  IActionResult Index(int id)
+        public  IActionResult Index(int? id)
         {
             var lstPost = _postRepo.GetListPostByCategory(id);
             return View(lstPost);

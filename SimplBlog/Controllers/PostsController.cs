@@ -6,16 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SimplBlog.Models;
+using SimplBlog.Repository;
 
 namespace SimplBlog.Controllers
 {
     public class PostsController : Controller
     {
         private readonly BloggingContext _context;
-
-        public PostsController(BloggingContext context)
+        IPostRepo _postRepo;
+        public PostsController(BloggingContext context, IPostRepo postRepo)
         {
             _context = context;
+            _postRepo = postRepo;
         }
 
         // GET: Posts
@@ -25,20 +27,9 @@ namespace SimplBlog.Controllers
         }
 
         // GET: Posts/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var post = await _context.Posts
-                .SingleOrDefaultAsync(m => m.PostId == id);
-            if (post == null)
-            {
-                return NotFound();
-            }
-
+            var post = _postRepo.GetDetailPost(id);
             return View(post);
         }
 

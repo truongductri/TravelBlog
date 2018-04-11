@@ -9,6 +9,7 @@ namespace SimplBlog.Repository
     public interface IPostRepo
     {
         List<Post> GetListPost();
-        List<Post> GetListPostByCategory(int categoryId);
+        List<Post> GetListPostByCategory(int? id);
+        Post GetDetailPost(int? id);
     }
 }
