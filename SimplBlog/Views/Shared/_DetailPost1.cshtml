@@ -1,0 +1,13 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model SimplBlog.Models.Post
+
+<header>
+    <h1 class="entry-title" itemprop="headline">@Model.Title</h1>
+    <p class="entry-meta"><time class="entry-time" itemprop="datePublished">@Model.PostedOn.ToShortDateString()</time> by <span class="entry-author" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><a href="https://tarasmulticulturaltable.com/author/admin/" class="entry-author-link" itemprop="url" rel="author"><span class="entry-author-name" itemprop="name">Admin</span></a></span> <span class="entry-comments-link"><a href="https://tarasmulticulturaltable.com/sixteencheesecakes-badischer-rahmkuchen-baden-style-cheesecake-and-triberg/#comments">18 Comments</a></span> </p>
+</header>
+<img src="@Model.ImagePath" alt="" style="width:730px; height:auto" />
+<p>
+    @Model.Description
+</p>
