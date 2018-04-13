@@ -77,6 +77,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="content-grids">
                 <div class="row">
                     <div class="col-md-8 content-main">
+                        <section class="container">
+                            @RenderSection("Breadcrumb", required: false)
+                        </section>
                         @RenderBody()
                     </div>
                     <div class="col-md-4 content-right">

@@ -2,12 +2,13 @@
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model IEnumerable<SimplBlog.Models.Post>
+
+@model SimplBlog.ViewModels.PagedList<Post>
 @if (Model != null)
 {
     <div class="content-grid">
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.Data)
         {
             <div class="content-grid-info">
                 <img src="@item.ImagePath" alt="" style="width:250px; height:auto;" />
@@ -19,4 +20,24 @@
             </div>
         }
     </div>
+    <div>
+        @if (Model.HasPaging)
+        {
+            <div class="m-pagination">
+                <ul>
+                    @if (!string.IsNullOrEmpty(Model.PrevPageLink))
+                    {
+                        <li><a class="prev" href="@Model.PrevPageLink">&laquo; Previous</a></li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.NextPageLink))
+                    {
+                        <li><a class="next" href="@Model.NextPageLink">Next &raquo;</a></li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
 }
+
+
+

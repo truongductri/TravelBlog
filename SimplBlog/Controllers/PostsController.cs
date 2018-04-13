@@ -7,23 +7,41 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SimplBlog.Models;
 using SimplBlog.Repository;
+using SimplBlog.ViewModels;
+using SimplBlog.Services;
 
 namespace SimplBlog.Controllers
 {
+    
     public class PostsController : Controller
     {
         private readonly BloggingContext _context;
-        IPostRepo _postRepo;
-        public PostsController(BloggingContext context, IPostRepo postRepo)
+        private readonly IPostRepo _postRepo;
+        private readonly ICommonService _commonService;
+
+        public PostsController(BloggingContext context,ICommonService commonService, IPostRepo postRepo)
         {
             _context = context;
             _postRepo = postRepo;
+            _commonService = commonService;
         }
 
         // GET: Posts
-        public async Task<IActionResult> Index()
+        [Route("posts")]
+        [Route("posts/{page}")]
+        public IActionResult Index(int page = 1)
+
         {
-            return View(await _context.Posts.ToListAsync());
+            if (page < 1) page = 1;
+            var vm = new PostsPageViewModel();
+            var queryParams = new QueryParams()
+            {
+                CurrentPage = page-1,
+                PageItems = 2
+            };
+            vm.ListPost = _commonService.FindAll<Post>(queryParams); 
+            vm.ListPost.PagingBaseUrl = RouteHelper.LinkPosts(true);
+            return View(vm);
         }
 
         // GET: Posts/Details/5

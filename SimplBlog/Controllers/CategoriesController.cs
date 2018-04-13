@@ -10,6 +10,7 @@ using SimplBlog.Repository;
 
 namespace SimplBlog.Controllers
 {
+    
     public class CategoriesController : Controller
     {
         private readonly BloggingContext _context;

@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Views\Posts\Index1.cshtml" />
     <Content Include="Views\Shared\_DetailPost.cshtml" />
   </ItemGroup>
 
@@ -26,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Posts\Index.cshtml" />
     <None Include="Views\Shared\Components\Categories\Default.cshtml" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\site.min.js" />

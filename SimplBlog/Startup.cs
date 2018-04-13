@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimplBlog.Models;
 using Microsoft.EntityFrameworkCore;
 using SimplBlog.Repository;
+using SimplBlog.Services;
 
 namespace SimplBlog
 {
@@ -26,7 +27,10 @@ namespace SimplBlog
         {
             services.AddScoped<ICateRepo, CateRepo>();
             services.AddTransient<IPostRepo, PostRepo>();
+            //services.AddTransient<IPaginatedMetaService, PaginatedMetaService>();
+            services.AddTransient<ICommonService, CommonService>();
             services.AddMvc();
+          
             
             var connection = @"Server=DESKTOP-V33HAG7\SQLEXPRESS;Database=SimplBlog;User Id=sa;Password=123456;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<BloggingContext>(options => options.UseSqlServer(connection));
@@ -58,6 +62,7 @@ namespace SimplBlog
 
             app.UseMvc(routes =>
             {
+               
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
