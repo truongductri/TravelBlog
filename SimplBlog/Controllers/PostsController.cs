@@ -17,9 +17,9 @@ namespace SimplBlog.Controllers
     {
         private readonly BloggingContext _context;
         private readonly IPostRepo _postRepo;
-        private readonly ICommonService _commonService;
+        private readonly IPostService _commonService;
 
-        public PostsController(BloggingContext context,ICommonService commonService, IPostRepo postRepo)
+        public PostsController(BloggingContext context,IPostService commonService, IPostRepo postRepo)
         {
             _context = context;
             _postRepo = postRepo;
@@ -28,9 +28,8 @@ namespace SimplBlog.Controllers
 
         // GET: Posts
         [Route("posts")]
-        [Route("posts/{page}")]
+        [Route("posts/p{page}")]
         public IActionResult Index(int page = 1)
-
         {
             if (page < 1) page = 1;
             var vm = new PostsPageViewModel();
@@ -39,7 +38,7 @@ namespace SimplBlog.Controllers
                 CurrentPage = page-1,
                 PageItems = 2
             };
-            vm.ListPost = _commonService.FindAll<Post>(queryParams); 
+            vm.ListPost = _commonService.FindAllPost<Post>(queryParams); 
             vm.ListPost.PagingBaseUrl = RouteHelper.LinkPosts(true);
             return View(vm);
         }

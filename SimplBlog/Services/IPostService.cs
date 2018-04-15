@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace SimplBlog.Services
 {
-    public interface ICommonService 
+    public interface IPostService 
     {
-        PagedList<Post> FindAll<Post>(QueryParams queryParams);
+        PagedList<Post> FindAllPost<Post>(QueryParams queryParams);
         
     }
 }

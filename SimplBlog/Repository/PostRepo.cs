@@ -15,24 +15,19 @@ namespace SimplBlog.Repository
             _context = context;
         }
 
-        public List<Post> GetListPost()
-        {
-            return _context.Posts.Where(x => x.Published == true && x.Published == true).ToList();
-        }
-        public List<Post> GetListPostByCategory(int? id)
-        {
-            return _context.Posts.Where(x => x.CategoryId == id && x.Published == true).ToList();
-
-        }
         public Post GetDetailPost(int? id)
         {
             return _context.Posts.SingleOrDefault(x => x.PostId == id && x.Published == true);
         }
-        public int GetAllPostsNumber()
-        {
-            return _context.Posts.Count(x => x.Published == true);
-        }
 
+        public List<Post> GetListPostCateForPaging(QueryParams queryParams, int id,out int totalItems)
+        {
+            var query = _context.Posts.Where(x => x.Published == true && x.CategoryId == id);
+            totalItems = query.Count();
+            var listPost = query.OrderByDescending(x => x.PostId).Skip(queryParams.CurrentPage * queryParams.PageItems).Take(queryParams.PageItems).ToList();
+            return listPost;
+        }
+        
         public List<Post> GetListPostForPaging(QueryParams queryParams, out int totalItems)
         {
             var query = _context.Posts.Where(x => x.Published == true);
@@ -40,6 +35,7 @@ namespace SimplBlog.Repository
             var listPost = query.OrderByDescending(x => x.PostId).Skip(queryParams.CurrentPage * queryParams.PageItems).Take(queryParams.PageItems).ToList();
             return listPost;
         }
+        
     }
 }
  

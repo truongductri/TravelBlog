@@ -1,10 +1,20 @@
-﻿@model IEnumerable<SimplBlog.Models.Post>
+﻿@model SimplBlog.ViewModels.PostsPageViewModel
+@using SimplBlog.Services
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("_ListPosts");
+@if (Model != null)
+{
+    @section Css{
+        <link href="~/css/social-share.css" rel="stylesheet" />
+        <link href="~/css/custom.css" rel="stylesheet" />
+    }
+    @section Breadcrumb{
+        @Html.Raw(RouteHelper.BreadcrumbCategoryPosts())
+    }
+    @Html.Partial("_ListPosts", Model.ListPost)
+}
 
-    

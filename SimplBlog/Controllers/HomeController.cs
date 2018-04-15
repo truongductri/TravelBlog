@@ -3,22 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SimplBlog.Repository;
 using SimplBlog.Models;
+using SimplBlog.ViewModels;
+using SimplBlog.Services;
 
 namespace SimplBlog.Controllers
 {
     public class HomeController : Controller
     {
-        private IPostRepo _postRepo;
-        public HomeController(IPostRepo postRepo)
+        private IPostService _postService;
+        public HomeController(IPostService postService)
         {
-            _postRepo = postRepo;
+            _postService = postService;
         }
-        public IActionResult Index()
+
+        [Route("home")]
+        [Route("/")]
+        [Route("home/p{page}")]
+        public IActionResult Index(int page = 1)
         {
-            var lstPost = _postRepo.GetListPost();
-            return View(lstPost);
+            if (page < 1) page = 1;
+            var vm = new PostsPageViewModel();
+            var queryParams = new QueryParams()
+            {
+                PageItems = 2,
+                CurrentPage = page - 1
+            };
+            vm.ListPost = _postService.FindAllPost<Post>(queryParams);
+            vm.ListPost.PagingBaseUrl = RouteHelper.LinkHome(true);
+            return View(vm);
         }
         
     }

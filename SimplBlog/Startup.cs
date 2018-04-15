@@ -28,7 +28,8 @@ namespace SimplBlog
             services.AddScoped<ICateRepo, CateRepo>();
             services.AddTransient<IPostRepo, PostRepo>();
             //services.AddTransient<IPaginatedMetaService, PaginatedMetaService>();
-            services.AddTransient<ICommonService, CommonService>();
+            services.AddTransient<IPostService, PostService>();
+            services.AddTransient<ICategoryService, CategotyService>();
             services.AddMvc();
           
             

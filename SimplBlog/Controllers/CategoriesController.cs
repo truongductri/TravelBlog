@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SimplBlog.Models;
 using SimplBlog.Repository;
+using SimplBlog.Services;
+using SimplBlog.ViewModels;
 
 namespace SimplBlog.Controllers
 {
@@ -15,17 +17,30 @@ namespace SimplBlog.Controllers
     {
         private readonly BloggingContext _context;
         private IPostRepo _postRepo;
-        public CategoriesController(BloggingContext context,IPostRepo postRepo)
+        private readonly ICategoryService _categoryService;
+        public CategoriesController(BloggingContext context,IPostRepo postRepo, ICategoryService categoryService)
         {
             _context = context;
             _postRepo = postRepo;
+            _categoryService = categoryService;
         }
 
         // GET: Categories
-        public  IActionResult Index(int? id)
+        [Route("Categories")]
+        [Route("Categories/{sename}")]
+        [Route("Categories/{sename}/p{page}")]
+        public  IActionResult Index(int id,int page =1)
         {
-            var lstPost = _postRepo.GetListPostByCategory(id);
-            return View(lstPost);
+            if (page < 1) page = 1;
+            var vm = new PostsPageViewModel();
+            var queryParams = new QueryParams()
+            {
+                CurrentPage = page - 1,
+                PageItems = 2
+            };
+            vm.ListPost = _categoryService.FindAllPostByCategory<Post>(queryParams,id);
+            vm.ListPost.PagingBaseUrl = RouteHelper.LinkCategory(true); 
+            return View(vm);
         }
 
         // GET: Categories/Details/5
