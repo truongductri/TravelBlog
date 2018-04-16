@@ -185,7 +185,8 @@ color:#00aeff;
 
 /*----*/
 .content-right {
-padding-left: 12em;
+    padding-left: 12em;
+    margin-top: 60px;
 }
 .recent,.comments,.archives{
 margin-bottom:3em;

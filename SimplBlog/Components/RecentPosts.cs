@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SimplBlog.Models;
 using SimplBlog.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace SimplBlog.Components
     public class RecentPosts : ViewComponent
     {
         private readonly IPostRepo _postRepo;
+       
         public RecentPosts(IPostRepo postRepo)
         {
             _postRepo = postRepo;
@@ -17,8 +19,7 @@ namespace SimplBlog.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var cateLst = new List<Category>();
-            cateLst = _cateRepo.GetAll();
+            var cateLst = _postRepo.GetRecentPosts();
 
             return View(cateLst);
         }

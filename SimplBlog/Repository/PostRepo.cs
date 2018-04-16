@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SimplBlog.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplBlog.Repository
 {
@@ -35,7 +36,11 @@ namespace SimplBlog.Repository
             var listPost = query.OrderByDescending(x => x.PostId).Skip(queryParams.CurrentPage * queryParams.PageItems).Take(queryParams.PageItems).ToList();
             return listPost;
         }
-        
+
+        public List<Post> GetRecentPosts()
+        {
+           return _context.Posts.FromSql("GetRecentPosts").ToList();
+        }
     }
 }
  
